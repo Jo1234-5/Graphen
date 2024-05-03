@@ -1,55 +1,54 @@
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Einen ungerichteten, gewichteten Graphen erstellen
-        Graph graph = new Graph(true, false);
+        // Erstellen der Knoten
+        Node n1 = new Node("1");
+        Node n2 = new Node("2");
+        Node n3 = new Node("3");
+        Node n4 = new Node("4");
+        Node n5 = new Node("5");
+        Node n6 = new Node("6");
 
-        // Vertices hinzufügen
-        Vertex a = new Vertex("A");
-        Vertex b = new Vertex("B");
-        Vertex c = new Vertex("C");
-        Vertex d = new Vertex("D");
-        Vertex e = new Vertex("E");
+        // Hinzufügen der Kanten
+        n1.addEdge(new Edge(n2, 7));
+        n1.addEdge(new Edge(n3, 9));
+        n1.addEdge(new Edge(n6, 14));
 
-        graph.addVertex(a.getData());
-        graph.addVertex(b.getData());
-        graph.addVertex(c.getData());
-        graph.addVertex(d.getData());
-        graph.addVertex(e.getData());
+        n2.addEdge(new Edge(n1, 7));
+        n2.addEdge(new Edge(n3, 10));
+        n2.addEdge(new Edge(n4, 15));
 
-        // Kanten hinzufügen
-        graph.addEdge(a, b, 4); // Verbindung A-B mit Gewicht 4
-        graph.addEdge(a, c, 2); // Verbindung A-C mit Gewicht 2
-        graph.addEdge(b, c, 5); // Verbindung B-C mit Gewicht 5
-        graph.addEdge(b, d, 10); // Verbindung B-D mit Gewicht 10
-        graph.addEdge(c, d, 3); // Verbindung C-D mit Gewicht 3
-        graph.addEdge(c, e, 8); // Verbindung C-E mit Gewicht 8
-        graph.addEdge(d, e, 7); // Verbindung D-E mit Gewicht 7
+        n3.addEdge(new Edge(n1, 9));
+        n3.addEdge(new Edge(n2, 10));
+        n3.addEdge(new Edge(n4, 11));
+        n3.addEdge(new Edge(n6, 2));
 
-        // Graph anzeigen
-        System.out.println("Graph:");
-        graph.print();
+        n4.addEdge(new Edge(n2, 15));
+        n4.addEdge(new Edge(n3, 11));
+        n4.addEdge(new Edge(n5, 6));
 
-        // Depth First Traversal (DFS)
-        System.out.println("\nDepth First Traversal (DFS) von A:");
-        graph.depthFirstTraversal(a);
+        n5.addEdge(new Edge(n4, 6));
+        n5.addEdge(new Edge(n6, 9));
 
-        // Breadth First Traversal (BFS)
-        System.out.println("\nBreadth First Traversal (BFS) von A:");
-        graph.breadthFirstTraversal(a);
+        n6.addEdge(new Edge(n1, 14));
+        n6.addEdge(new Edge(n3, 2));
+        n6.addEdge(new Edge(n5, 9));
 
-        // Kürzester Pfad von A nach E mit Dijkstra
-        System.out.println("\nKürzester Pfad von A nach E:");
-        Map<String, Object> shortestPathResult = graph.shortestPath(a, e);
-        List<Vertex> path = (List<Vertex>) shortestPathResult.get("path");
-        int distance = (int) shortestPathResult.get("distance");
+        List<Node> nodes = Arrays.asList(n1, n2, n3, n4, n5, n6);
 
-        System.out.print("Pfad: ");
-        for (Vertex v : path) {
-            System.out.print(v.getData() + " ");
-        }
-        System.out.println("\nDistanz: " + distance);
+        // Graph mit Traversals und Dijkstra
+        Graph graph = new Graph(nodes);
+
+        // Traversals
+        System.out.println("--- Breadth-First Traversal (BFS) ---");
+        graph.breadthFirstTraversal(n1);
+
+        System.out.println("\n--- Depth-First Traversal (DFS) ---");
+        graph.depthFirstTraversal(n1);
+
+        // Dijkstra-Test
+        System.out.println("\n--- Dijkstra ---");
+        graph.findShortestPath(n1, n5);
     }
 }

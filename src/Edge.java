@@ -1,20 +1,27 @@
 class Edge {
-    private Vertex start;
-    private Vertex end;
-    private int weight;
+    private Node target;
+    private double weight;
+    private boolean visited;
 
-    public Edge(Vertex start, Vertex end, int weight) {
-        this.start = start;
-        this.end = end;
-         //ist das Gewicht der Kante
+    public Edge(Node target, double weight) {
+        this.target = target;
         this.weight = weight;
+        this.visited = false;
     }
 
-    public Vertex getEnd() {
-        return this.end; // Gibt den End-Vertex zurück
+    public Node getTarget() {
+        return target;
     }
 
-    public Integer getWeight() {
-        return this.weight; // Gibt das Gewicht der Kante zurück
+    public double getWeight() {
+        return weight;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }
